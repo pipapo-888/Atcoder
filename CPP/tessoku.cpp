@@ -1,26 +1,29 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define rep(i, n) for (int i = 0; i < (n); i++)
+#define yes() cout << "Yes" << endl;
+#define no() cout << "No" << endl;
 
-int main() {
-  int N, S;
-  cin >> N >> S;
-  vector<int> A(N), P(N);
-  for (int i = 0; i < N; i++) {
-    cin >> A.at(i);
-  }
-  for (int i = 0; i < N; i++) {
-    cin >> P.at(i);
-  }
+int main()
+{
+	int t, n;
+	cin >> t >> n;
 
-  int ans = 0;
+	vector<int> l(n + 1), r(n + 1), attendance(t + 1, 0), ans(t + 1);
+	for (int i = 1; i <= n; i++)
+		cin >> l[i] >> r[i];
+	
+	for (int i = 1; i <= n; i++) {
+		attendance[l[i]]++;
+		attendance[r[i]]--;
+	}	
+	
+	ans[0] = attendance[0];
+	for (int i = 1; i <= t; i++) 
+		ans[i] = ans[i - 1] + attendance[i];
+	
+	rep(i, t)
+		cout << ans[i] << endl;
 
-  for (int i = 0;  i < N; i++)
-  {
-	for (int j = 0; j < N; j++)
-	{
-		if (A.at(i) + P.at(j) == S)
-			ans++; 
-	}
-  }
-  cout << ans << endl;
+	return (0);
 }
